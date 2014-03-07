@@ -183,15 +183,14 @@ class Selector(dict):
         return selector
 
     def child(self, **kwargs):
-        self[self.__childOrSibling].append("child")
-        self[self.__childOrSiblingSelector].append(Selector(**kwargs))
+        self[self.__childOrSibling] = ["child"]
+        self[self.__childOrSiblingSelector] = dict(self[self.__childOrSiblingSelector], **Selector(**kwargs))
 
     def sibling(self, **kwargs):
-        self[self.__childOrSibling].append("sibling")
-        self[self.__childOrSiblingSelector].append(Selector(**kwargs))
+        self[self.__childOrSibling] = ["sibling"]
+        self[self.__childOrSiblingSelector] = dict(self[self.__childOrSiblingSelector], **Selector(**kwargs))
 
     child_selector, from_parent = child, sibling
-
 
 def rect(top=0, left=0, bottom=100, right=100):
     return {"top": top, "left": left, "bottom": bottom, "right": right}
