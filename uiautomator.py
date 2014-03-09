@@ -867,12 +867,14 @@ class AutomatorDeviceObject(AutomatorDeviceUiObject):
         super(AutomatorDeviceObject, self).__init__(device, selector)
 
     def child(self, **kwargs):
-        '''set chileSelector.'''
+        '''set childSelector.'''
+        //TODO:change the return value
         self.selector.child(**kwargs)
         return self
 
     def sibling(self, **kwargs):
         '''set fromParent selector.'''
+        //TODO:change the return value
         self.selector.sibling(**kwargs)
         return self
 
