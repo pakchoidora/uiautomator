@@ -377,7 +377,11 @@ class AutomatorServer(object):
         return JsonRPCClient(self.rpc_uri, timeout=int(os.environ.get("JSONRPC_TIMEOUT", 90)))
 
     def start(self):
-        files = self.download_and_push()
+        if os.path.exists(os.getcwd()+os.sep+"First Run"):
+            files = self.__jar_files.keys()
+        else:
+            files = self.download_and_push()
+            file("First Run","w").close()
         cmd = list(itertools.chain(["shell", "uiautomator", "runtest"],
                                    files,
                                    ["-c", "com.github.uiautomatorstub.Stub"]))
