@@ -183,12 +183,12 @@ class Selector(dict):
         return selector
 
     def child(self, **kwargs):
-        self[self.__childOrSibling] = ["child"]
-        self[self.__childOrSiblingSelector] = dict(self[self.__childOrSiblingSelector], **Selector(**kwargs))
+        self[self.__childOrSibling].append("child")
+        self[self.__childOrSiblingSelector].append(Selector(**kwargs))
 
     def sibling(self, **kwargs):
-        self[self.__childOrSibling] = ["sibling"]
-        self[self.__childOrSiblingSelector] = dict(self[self.__childOrSiblingSelector], **Selector(**kwargs))
+        self[self.__childOrSibling].append("sibling")
+        self[self.__childOrSiblingSelector].append(Selector(**kwargs))
 
     child_selector, from_parent = child, sibling
 
@@ -866,14 +866,16 @@ class AutomatorDeviceObject(AutomatorDeviceUiObject):
         super(AutomatorDeviceObject, self).__init__(device, selector)
 
     def child(self, **kwargs):
+        # TODO:change the return value
+        # instance = AutomatorDeviceObject(self.device,**kwargs)
         '''set childSelector.'''
-        //TODO:change the return value
-        self.selector.child(**kwargs)
-        return self
+        selector = self.selector.clone()
+        selector.child(**kwargs)
+        return AutomatorDeviceObject(self.device, selector)
 
     def sibling(self, **kwargs):
         '''set fromParent selector.'''
-        //TODO:change the return value
+        # TODO:change the return value
         self.selector.sibling(**kwargs)
         return self
 
