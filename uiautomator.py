@@ -718,6 +718,10 @@ class AutomatorDeviceUiObject(object):
         '''ui object info.'''
         return self.jsonrpc.objInfo(self.selector)
 
+    def get_text(self):
+        '''get the text field'''
+        return self.jsonrpc.getText(self.selector)
+
     def set_text(self, text):
         '''set the text field.'''
         if text in [None, ""]:
